@@ -5,7 +5,7 @@ export default class Renderer {
   private scale: number;
   private cols: number;
   private rows: number;
-  private bgColor: string;
+  private bgColor: string; //TODO: properly handle bg and fgcolor as useroptions
   private fgColor: string;
   private display: Array<number>;
 
