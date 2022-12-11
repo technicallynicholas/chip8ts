@@ -7,24 +7,22 @@ const useCanvas = (draw: Function) => {
     if (canvasRef.current) {
       const canvas = canvasRef.current;
       const context = canvas.getContext("2d");
+      console.log("How many times does this happen...");
       if (context) {
         let requestAnimationId: number;
         let counter = 0;
         const render = (ctx: CanvasRenderingContext2D) => {
-          ctx.save();
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          draw(ctx, counter);
-          ctx.restore();
           counter++;
-          requestAnimationId = requestAnimationFrame(() => render(ctx));
+          draw(ctx, counter);
+          requestAnimationId = window.requestAnimationFrame(() => render(ctx));
         };
         render(context);
         return () => {
-          cancelAnimationFrame(requestAnimationId);
+          window.cancelAnimationFrame(requestAnimationId);
         };
       }
     }
-  });
+  }, [draw]);
   return canvasRef;
 };
 

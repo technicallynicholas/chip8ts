@@ -1,7 +1,4 @@
 export default class Renderer {
-  private ctx: CanvasRenderingContext2D;
-  private resX: number;
-  private resY: number;
   private scale: number;
   private cols: number;
   private rows: number;
@@ -9,16 +6,8 @@ export default class Renderer {
   private fgColor: string;
   private display: Array<number>;
 
-  constructor(
-    canvasContext: CanvasRenderingContext2D,
-    resolutionX: number,
-    resolutionY: number,
-    resolutionScale: number
-  ) {
+  constructor(resolutionScale: number) {
     //Initalization code.
-    this.ctx = canvasContext;
-    this.resX = resolutionX;
-    this.resY = resolutionY;
     this.scale = resolutionScale;
     this.cols = 64;
     this.rows = 32;
@@ -52,9 +41,9 @@ export default class Renderer {
     this.display = new Array(this.cols * this.rows);
   }
 
-  render() {
+  render(ctx: CanvasRenderingContext2D) {
     //Blank the screen
-    this.ctx.clearRect(0, 0, this.resX, this.resY);
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
     //Loop the display buffer
     for (let i = 0; i < this.cols * this.rows; i++) {
@@ -65,16 +54,15 @@ export default class Renderer {
       //If the pixel data at this display buffer location is set, draw the pixel.
       if (this.display[i]) {
         //Set color to draw
-        this.ctx.fillStyle = this.fgColor;
+        ctx.fillStyle = this.fgColor;
         //Draw pixel at position xy at current scale
-        this.ctx.fillRect(x, y, this.scale, this.scale);
+        ctx.fillRect(x, y, this.scale, this.scale);
       }
     }
   }
 
   testRender() {
-    this.setPixel(0, 0);
-    this.setPixel(63, 31);
-    console.log("Yassss");
+    this.setPixel(20, 10);
+    this.setPixel(40, 10);
   }
 }
