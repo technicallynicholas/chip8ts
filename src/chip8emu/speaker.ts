@@ -3,7 +3,7 @@ class Speaker {
   audioCtx: AudioContext;
   gain: GainNode;
   finish: AudioDestinationNode;
-  oscillator: OscillatorNode;
+  oscillator: OscillatorNode | null;
 
   constructor() {
     const AudioContext = window.AudioContext;
@@ -18,23 +18,24 @@ class Speaker {
   }
 
   play(freq: number) {
-    if (this.audioCtx && !this.oscillator) {
-      this.oscillator = this.audioCtx.createOscillator();
-      this.oscillator.frequency.setValueAtTime(
-        freq || 440,
-        this.audioCtx.currentTime
-      );
-      this.oscillator.type = "square";
-      this.oscillator.connect(this.gain);
-      this.oscillator.start();
-    }
+    // if (this.audioCtx && !this.oscillator) {
+    //   this.oscillator = this.audioCtx.createOscillator();
+    //   this.oscillator.frequency.setValueAtTime(
+    //     freq || 440,
+    //     this.audioCtx.currentTime
+    //   );
+    //   this.oscillator.type = "square";
+    //   this.oscillator.connect(this.gain);
+    //   this.oscillator.start();
+    // }
   }
 
   stop() {
-    if (this.oscillator) {
-      this.oscillator.stop();
-      this.oscillator.disconnect();
-    }
+    // if (this.oscillator) {
+    //   this.oscillator.stop();
+    //   this.oscillator.disconnect();
+    //   this.oscillator = null;
+    // }
   }
 }
 

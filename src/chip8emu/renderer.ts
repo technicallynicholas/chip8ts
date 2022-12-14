@@ -13,7 +13,7 @@ export default class Renderer {
     this.rows = 32;
     this.bgColor = "black";
     this.fgColor = "#ffbf00";
-    this.display = new Array(this.cols, this.rows);
+    this.display = new Array(this.cols * this.rows); //TODO: Fix this. Replace with memory handler calls.
   }
 
   setPixel(x: number, y: number) {
